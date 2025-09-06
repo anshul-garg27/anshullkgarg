@@ -39,13 +39,21 @@ COPY --from=builder /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
-### 2. Alpine Linux Base
-Switching to Alpine reduced the base image from 200MB to 5MB.
+### 2. Alpine Linux Base (with musl caveats)
+Alpine drops the base image from ~200MB to ~5MB. Watch out for:
+- glibc vs musl incompatibilities (native deps, DNS resolution)
+- Prefer `eclipse-temurin:17-jre-alpine`/`node:18-alpine` images maintained upstream
 
-### 3. Layer Optimization
+### 3. Layer & cache optimization
 - Ordered commands by frequency of change
 - Combined RUN commands to reduce layers
 - Used .dockerignore to exclude unnecessary files
+
+### 4. SBOM + security
+```bash
+docker buildx build --sbom=true --attest type=provenance,mode=max .
+trivy image --severity CRITICAL,HIGH --ignore-unfixed my/app:prod
+```
 
 ## Final Results
 

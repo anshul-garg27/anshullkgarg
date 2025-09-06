@@ -51,6 +51,17 @@ SELECT * FROM orders
 WHERE user_id = 123 AND status = 'pending';
 ```
 
+### What the plan should look like
+```text
+Index Scan using idx_user_status on orders  (cost=0.42..8.53 rows=1 width=...) 
+  Index Cond: ((user_id = 123) AND (status = 'pending'))
+```
+
+### Avoid the foot‑guns
+- Left‑anchored predicates only use the leftmost columns in a composite index
+- `ILIKE '%foo%'` needs `pg_trgm` (`gin_trgm_ops`) to be indexable
+- Keep index count per table reasonable; writes degrade after ~10–15 indexes
+
 ## Results
 
 Proper indexing strategies delivered:

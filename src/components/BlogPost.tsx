@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -7,6 +7,42 @@ import rehypeRaw from 'rehype-raw';
 import { Calendar, Clock, Tag, User, ArrowLeft, Share2, BookOpen, TrendingUp } from 'lucide-react';
 import { BlogPost as BlogPostType } from '@/utils/blogLoader';
 import 'prismjs/themes/prism-tomorrow.css'; // Dark theme for code blocks
+
+// Top-level Mermaid renderer to avoid TSX parsing issues
+const MermaidRenderer: React.FC<{ code: string }> = ({ code }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const anyWindow = window as any;
+    const render = () => {
+      try {
+        anyWindow.mermaid?.initialize?.({ startOnLoad: false, theme: 'dark' });
+        anyWindow.mermaid?.init?.(undefined, ref.current);
+      } catch {}
+    };
+
+    if (!anyWindow.mermaid) {
+      const scriptId = 'mermaid-cdn-script';
+      if (!document.getElementById(scriptId)) {
+        const s = document.createElement('script');
+        s.id = scriptId;
+        s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+        s.onload = render;
+        document.body.appendChild(s);
+      } else {
+        const t = setTimeout(render, 300);
+        return () => clearTimeout(t);
+      }
+    } else {
+      render();
+    }
+  }, [code]);
+
+  return (
+    <div className="mb-8 bg-neutral-900 border border-white/10 rounded-xl p-4 overflow-x-auto">
+      <div ref={ref} className="mermaid">{code}</div>
+    </div>
+  );
+};
 
 interface BlogPostProps {
   post: BlogPostType;
@@ -42,7 +78,7 @@ const BlogPost: React.FC<BlogPostProps> = ({
         ];
         
         await Promise.allSettled(
-          languages.map(lang => import(lang).catch(() => {}))
+          languages.map((lang) => import(/* @vite-ignore */ lang).catch(() => {}))
         );
         
         // Re-highlight after loading
@@ -110,21 +146,36 @@ const BlogPost: React.FC<BlogPostProps> = ({
     ),
     
     // Enhanced code blocks
-    pre: ({ children, ...props }: any) => (
-      <div className="relative mb-8 group">
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white/60 hover:text-white transition-colors">
-            <Share2 className="w-4 h-4" />
-          </button>
+    pre: ({ children, ...props }: any) => {
+      // If the child is a mermaid code block, render diagram without <pre>
+      const child: any = Array.isArray(children) ? children[0] : children;
+      const className = child?.props?.className || '';
+      if (className.includes('language-mermaid') || className === 'mermaid') {
+        const code = String(child.props.children).replace(/\n$/, '');
+        return <MermaidRenderer code={code} />;
+      }
+      return (
+        <div className="relative mb-8 group">
+          <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button className="p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white/60 hover:text-white transition-colors">
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+          <pre className="bg-neutral-900 border border-white/10 rounded-xl p-6 overflow-x-auto text-sm leading-relaxed" {...props}>
+            {children}
+          </pre>
         </div>
-        <pre className="bg-neutral-900 border border-white/10 rounded-xl p-6 overflow-x-auto text-sm leading-relaxed" {...props}>
-          {children}
-        </pre>
-      </div>
-    ),
+      );
+    },
     
-    // Inline code
+    // Inline code and mermaid blocks
     code: ({ children, className, ...props }: any) => {
+      const isMermaid = className?.includes('language-mermaid') || className === 'mermaid';
+      if (isMermaid) {
+        // mermaid handled in <pre>
+        return <code className={className} {...props}>{children}</code>;
+      }
+
       const isInline = !className;
       if (isInline) {
         return (

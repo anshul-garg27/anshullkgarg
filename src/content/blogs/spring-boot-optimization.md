@@ -46,6 +46,23 @@ G1GC tuning made a significant impact:
 ### 3. Inefficient Queries
 We optimized our most expensive queries and added proper indexing.
 
+### 4. Thread‑pool hygiene
+```yaml
+server.tomcat.threads.max: 200
+spring.task.execution.pool.core-size: 16
+spring.task.execution.pool.max-size: 64
+spring.task.execution.pool.queue-capacity: 1000
+```
+
+### 5. Metrics that matter
+```mermaid
+graph TD
+  A[Request] -->|Timer: http.server.requests| B[Controller]
+  B -->|Timer: datasource.connections| C[Repository]
+  C -->|Timer: jdbc.calls| D[DB]
+```
+We drove changes by dashboards for p50/p95/p99, connection pool usage, and GC pauses.
+
 ## Results
 
 After implementing all optimizations:
