@@ -85,7 +85,7 @@ const About: React.FC<AboutProps> = ({ personalInfo }) => {
                   name={personalInfo.name}
                   title="Backend Engineer"
                   size="xl"
-                  src={`${import.meta.env.BASE_URL || '/'}images/avatar-optimized.jpg`}
+                  src="/anshullkgarg/images/avatar-optimized.jpg"
                 />
                 
                 {/* Quick stats */}
