@@ -1,0 +1,37 @@
+# Innovative features (set you apart)
+
+### 1) **Explorable Case Studies** (mini Flow Player)
+
+For 1–2 projects, add a tiny **request-through-system** animation:
+
+* Nodes: Client → API → Cache → DB → Queue.
+* Toggles: “Cache miss”, “DB slow”, “Retry jitter”.
+* Output: p95 waterfall changes & short explanation.
+  (*Lightweight version of your “Explorable System Design” vision, right on the portfolio.*)
+
+### 2) **Skill Proof Badges**
+
+Each “Expert” skill shows **proof artifacts**: PR link, graph screenshot, short code sample. Helps recruiters trust levels.
+
+### 3) **Impact Calculator**
+
+A small widget: “Move your API from p95 320ms → 180ms at 1k RPS → saves ≈ X engineer hours/month”. Puts your work in business terms.
+
+### 4) **Live Playground Links**
+
+Tiny buttons to open stack-blitz/CodeSandbox for demo submodules (read-only). Great for URL shortener, ingest pipeline toy models.
+
+### 5) **Interactive Resume Builder**
+
+“Pick a role”, “Pick 3 projects” → auto-compose a 1-page PDF (md → PDF) with tailored bullets.
+
+### 6) **“What I’m Learning” Log**
+
+Changelog cards (“Upgraded Spring Boot 3.5.5 → resolved Tomcat CVE”, “Kafka exactly-once notes”). Feels authentic; keeps site fresh.
+
+### 7) **Recruiter Shortcuts**
+
+* `?dl=resume` param → instant download
+* `?case=gcc-logging` → pre-open the corresponding modal
+* Copy-to-clipboard for email/phone with a toast
+

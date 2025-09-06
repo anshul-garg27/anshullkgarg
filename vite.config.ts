@@ -4,7 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/modern-resume/', // GitHub Pages repository name
+  base: '/anshullkgarg/', // GitHub Pages repository name
   plugins: [react()],
   resolve: {
     alias: {

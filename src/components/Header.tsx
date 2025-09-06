@@ -13,14 +13,15 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const prefersReducedMotion = useReducedMotion();
 
   const navItems = [
-    { href: '#about', label: 'About' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#about', label: 'About', id: 'about' },
+    { href: '#experience', label: 'Experience', id: 'experience' },
+    { href: '#projects', label: 'Projects', id: 'projects' },
+    { href: '#skills', label: 'Skills', id: 'skills' },
+    { href: '#contact', label: 'Contact', id: 'contact' },
   ];
 
   useEffect(() => {
@@ -30,6 +31,42 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Track active section with Intersection Observer
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Trigger when section is 20% from top
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    navItems.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      navItems.forEach(({ id }) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -96,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
       role="banner"
     >
       <nav 
-        className="max-w-7xl mx-auto container-padding py-4"
+        className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -127,29 +164,54 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className="text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-md px-3 py-2"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { 
-                    delay: 0.1 + index * 0.1, 
-                    duration: prefersReducedMotion ? 0.01 : 0.3 
-                  }
-                }}
-              >
-                {item.label}
-              </motion.a>
-            ))}
+          <div className="hidden md:flex items-center space-x-2">
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.id;
+              return (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href);
+                  }}
+                  className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:scale-105 ${
+                    isActive
+                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-sm'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/50 dark:hover:bg-neutral-800/50 hover:shadow-md'
+                  }`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { 
+                      delay: 0.1 + index * 0.1, 
+                      duration: prefersReducedMotion ? 0.01 : 0.3 
+                    }
+                  }}
+                  whileHover={prefersReducedMotion ? {} : { 
+                    y: -2,
+                    transition: { duration: 0.2, ease: "easeOut" }
+                  }}
+                  whileTap={prefersReducedMotion ? {} : { 
+                    scale: 0.95,
+                    transition: { duration: 0.1 }
+                  }}
+                >
+                  {item.label}
+                  {isActive && (
+                    <motion.div
+                      className="absolute bottom-0 left-1/2 w-1 h-1 bg-primary-600 dark:bg-primary-400 rounded-full"
+                      layoutId="activeIndicator"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      style={{ x: '-50%' }}
+                    />
+                  )}
+                </motion.a>
+              );
+            })}
             
             {/* Theme Toggle */}
             <motion.button
@@ -205,20 +267,30 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
               role="menu"
             >
               <div className="flex flex-col space-y-2">
-                {navItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
-                    }}
-                    className="text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 font-medium px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                    role="menuitem"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      }}
+                      className={`relative font-medium px-4 py-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
+                        isActive
+                          ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                          : 'text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+                      }`}
+                      role="menuitem"
+                    >
+                      {item.label}
+                      {isActive && (
+                        <div className="absolute left-2 top-1/2 w-1 h-4 bg-primary-600 dark:bg-primary-400 rounded-full transform -translate-y-1/2" />
+                      )}
+                    </a>
+                  );
+                })}
               </div>
             </motion.div>
           )}

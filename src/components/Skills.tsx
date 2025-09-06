@@ -186,9 +186,9 @@ const skillEvidence: Record<string, SkillEvidence[]> = {
 
 // Semantic color system - Color = Level (not category)
   const levelStyles: Record<SkillLevel, string> = {
-    expert: 'bg-slate-600 dark:bg-slate-700 text-white dark:text-slate-200 border border-slate-700 dark:border-slate-600',
-    advanced: 'bg-blue-600 dark:bg-blue-800 text-white dark:text-blue-200 border border-blue-700 dark:border-blue-700', 
-    intermediate: 'bg-purple-600 dark:bg-purple-800 text-white dark:text-purple-200 border border-purple-700 dark:border-purple-700'
+    expert: 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50',
+    advanced: 'bg-success-50 dark:bg-success-900/30 text-success-700 dark:text-success-300 border border-success-200/50 dark:border-success-700/50', 
+    intermediate: 'bg-warning-50 dark:bg-warning-900/30 text-warning-700 dark:text-warning-300 border border-warning-200/50 dark:border-warning-700/50'
   };
 
 const levelIcons: Record<SkillLevel, React.ComponentType<{ className?: string }>> = {
@@ -286,7 +286,7 @@ const SkillChip: React.FC<SkillChipProps> = ({ skill, onOpen, isKeyboardFocused 
     <motion.button
       onClick={onOpen}
       className={`
-        group relative h-10 px-4 inline-flex items-center gap-2 rounded-lg
+        group relative h-9 sm:h-10 px-2 sm:px-3 md:px-4 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg text-center w-full
         ${levelStyles[skill.proficiency as SkillLevel]}
         hover:shadow-sm transition-all duration-200 will-change-transform
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2
@@ -303,7 +303,7 @@ const SkillChip: React.FC<SkillChipProps> = ({ skill, onOpen, isKeyboardFocused 
       aria-label={`${skill.name}, ${skill.proficiency} level${skill.yearsOfExperience ? `, ${skill.yearsOfExperience} years` : ''}${hasEvidence ? '. Click to view evidence.' : ''}`}
     >
       {/* Simple content */}
-      <span className="font-medium text-sm">{skill.name}</span>
+      <span className="font-medium text-xs sm:text-sm truncate">{skill.name}</span>
     </motion.button>
   );
 };
@@ -731,10 +731,10 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
     <>
       <section 
         id="skills" 
-        className="py-24 md:py-32"
+        className="py-24 md:py-32 scroll-mt-28"
         aria-labelledby="skills-heading"
       >
-        <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
+        <div className="max-w-content mx-auto px-6">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -767,7 +767,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                       categories: new Set(), 
                       search: '' 
                     })}
-                    className={`h-10 px-4 rounded-full border transition-all duration-200 ${
+                    className={`h-9 sm:h-10 px-3 sm:px-4 rounded-full border transition-all duration-200 text-sm ${
                       getActiveFilterCount() === 0
                         ? 'bg-primary-500 text-white border-primary-500 shadow-md'
                         : 'bg-white/70 dark:bg-neutral-900/60 border-neutral-300/60 dark:border-neutral-700/60 hover:bg-neutral-100 dark:hover:bg-neutral-800/60'
@@ -790,10 +790,10 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                         }
                         updateFilters({ levels: newLevels });
                       }}
-                      className={`h-10 px-4 rounded-full border transition-all duration-200 ${
+                      className={`h-9 sm:h-10 px-3 sm:px-4 rounded-full border transition-all duration-300 ease-out hover:scale-105 hover:shadow-md text-sm ${
                         filters.levels.has(level)
-                          ? `bg-gradient-to-r ${levelStyles[level]} text-white border-transparent shadow-md`
-                          : 'bg-white/70 dark:bg-neutral-900/60 border-neutral-300/60 dark:border-neutral-700/60 hover:bg-neutral-100 dark:hover:bg-neutral-800/60'
+                          ? `bg-gradient-to-r ${levelStyles[level]} text-white border-transparent shadow-md hover:shadow-lg`
+                          : 'bg-white/70 dark:bg-neutral-900/60 border-neutral-300/60 dark:border-neutral-700/60 hover:bg-neutral-100 dark:hover:bg-neutral-800/60 hover:border-primary-300 dark:hover:border-primary-600'
                       }`}
                       aria-pressed={filters.levels.has(level)}
                     >
@@ -827,10 +827,10 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                         }
                         updateFilters({ categories: newCategories });
                       }}
-                      className={`h-10 px-4 rounded-full transition-all duration-200 ${
+                      className={`h-9 sm:h-10 px-3 sm:px-4 rounded-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-md text-sm ${
                         filters.categories.has(category.id)
-                          ? 'bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900 shadow-md'
-                          : 'bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 text-neutral-900 dark:text-neutral-100'
+                          ? 'bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900 shadow-md hover:shadow-lg'
+                          : 'bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 text-neutral-900 dark:text-neutral-100 hover:border-primary-300 dark:hover:border-primary-600'
                       }`}
                       aria-pressed={filters.categories.has(category.id)}
                     >
@@ -847,14 +847,14 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                         placeholder="Search skills..."
                         value={filters.search}
                         onChange={(e) => updateFilters({ search: e.target.value })}
-                        className="h-10 w-56 pl-10 pr-4 rounded-full bg-neutral-100 dark:bg-neutral-800/60 border-0 outline-none focus:ring-2 focus:ring-teal-300 text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-600 dark:placeholder-neutral-400 transition-all"
+                        className="h-9 sm:h-10 w-40 sm:w-56 pl-9 sm:pl-10 pr-3 sm:pr-4 rounded-full bg-neutral-100 dark:bg-neutral-800/60 border-0 outline-none focus:ring-2 focus:ring-teal-300 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-600 dark:placeholder-neutral-400 transition-all"
                       />
                     </div>
 
                     <select
                       value={filters.sort}
                       onChange={(e) => updateFilters({ sort: e.target.value as SortOption })}
-                      className="h-10 px-3 rounded-full bg-neutral-100 dark:bg-neutral-800/60 border-0 outline-none focus:ring-2 focus:ring-teal-300 text-sm text-neutral-900 dark:text-neutral-100"
+                      className="h-9 sm:h-10 px-2 sm:px-3 rounded-full bg-neutral-100 dark:bg-neutral-800/60 border-0 outline-none focus:ring-2 focus:ring-teal-300 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100"
                     >
                       <option value="level">Sort by Level</option>
                       <option value="years">Sort by Years</option>
@@ -874,7 +874,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: prefersReducedMotion ? 0.01 : 0.2 }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4"
                   role="grid"
                   aria-label="Skills grid"
                 >
@@ -926,7 +926,7 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
                   and leading critical infrastructure migrations.
                 </p>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                   <div className="text-center">
                     <div className="text-h2 font-bold text-emerald-600 dark:text-emerald-400 mb-1">
                       {skills.filter(s => s.proficiency === 'expert').length}

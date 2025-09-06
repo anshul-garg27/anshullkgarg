@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Globe } from 'lucide-react';
 import { PersonalInfo } from '@/types';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ProfessionalAvatar } from './Avatar';
 
 interface AboutProps {
   personalInfo: PersonalInfo;
@@ -34,10 +35,10 @@ const About: React.FC<AboutProps> = ({ personalInfo }) => {
   return (
     <section 
       id="about" 
-      className="section-padding bg-slate-50 dark:bg-slate-900/50"
+      className="py-24 md:py-32 bg-neutral-50/50 dark:bg-neutral-900/50 scroll-mt-28"
       aria-labelledby="about-heading"
     >
-      <div className="max-w-6xl mx-auto container-padding">
+      <div className="max-w-content mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -48,35 +49,59 @@ const About: React.FC<AboutProps> = ({ personalInfo }) => {
           <motion.div variants={itemVariants} className="text-center mb-16">
             <h2 
               id="about-heading"
-              className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-4"
+              className="text-h1 md:text-h1-lg font-display font-bold text-neutral-800 dark:text-neutral-100 mb-4"
             >
               About Me
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full" />
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-success-500 mx-auto rounded-full" />
           </motion.div>
 
           <div className="grid lg:grid-cols-3 gap-12 items-start">
             {/* About Text */}
             <motion.div variants={itemVariants} className="lg:col-span-2">
               <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
+                <p className="text-neutral-600 dark:text-neutral-300 text-lg font-body mb-6">
                   {personalInfo.summary}
                 </p>
                 
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-neutral-600 dark:text-neutral-300 text-base font-body mb-6">
                   I'm passionate about creating digital experiences that are not only beautiful and functional, 
                   but also accessible and inclusive. My approach combines technical expertise with design thinking 
                   to solve complex problems and deliver exceptional user experiences.
                 </p>
                 
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-neutral-600 dark:text-neutral-300 text-base font-body">
                   When I'm not coding, you can find me exploring new technologies, contributing to open-source 
                   projects, or sharing knowledge through technical writing and mentoring.
                 </p>
               </div>
             </motion.div>
 
-            {/* Contact Info Card */}
+            {/* Professional Photo & Contact Info */}
+            <motion.div variants={itemVariants} className="space-y-8">
+              {/* Professional Headshot */}
+              <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-card border border-neutral-200/50 dark:border-neutral-700/50">
+                <ProfessionalAvatar 
+                  name={personalInfo.name}
+                  title="Backend Engineer"
+                  size="xl"
+                  src={`${import.meta.env.BASE_URL}images/avatar-optimized.jpg`}
+                />
+                
+                {/* Quick stats */}
+                <div className="grid grid-cols-2 gap-4 text-center mt-6">
+                  <div className="bg-neutral-50 dark:bg-neutral-900/50 rounded-lg p-3">
+                    <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">3+</div>
+                    <div className="text-xs text-neutral-600 dark:text-neutral-400">Years Experience</div>
+                  </div>
+                  <div className="bg-neutral-50 dark:bg-neutral-900/50 rounded-lg p-3">
+                    <div className="text-2xl font-bold text-success-600 dark:text-success-400">15+</div>
+                    <div className="text-xs text-neutral-600 dark:text-neutral-400">Projects Delivered</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Info Card */}
             <motion.div variants={itemVariants}>
               <div className="glass-effect rounded-2xl p-8 sticky top-8">
                 <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-6">
@@ -146,7 +171,7 @@ const About: React.FC<AboutProps> = ({ personalInfo }) => {
 
                 {/* Download Resume Button */}
                 <motion.button
-                  className="w-full mt-8 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-lg hover:shadow-xl"
+                  className="w-full mt-8 bg-gradient-to-r from-primary-600 to-success-600 hover:from-primary-700 hover:to-success-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-lg hover:shadow-xl"
                   whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
                   whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
                   onClick={() => {
@@ -157,6 +182,7 @@ const About: React.FC<AboutProps> = ({ personalInfo }) => {
                   Download Resume
                 </motion.button>
               </div>
+            </motion.div>
             </motion.div>
           </div>
         </motion.div>

@@ -8,8 +8,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Research-based: Inter is optimal for UI/UX (designed for screens)
-        // Superior readability at all sizes, modern geometric sans-serif
+        // Primary body font: Inter - optimal for UI/UX, excellent readability
         sans: [
           'Inter', 
           '-apple-system', 
@@ -21,11 +20,20 @@ export default {
           'sans-serif'
         ],
         
-        // Research-based: JetBrains Mono for code/technical content
-        // Designed specifically for developers, excellent ligatures
+        // Alternative body font: Manrope - geometric, friendly, professional
+        body: [
+          'Manrope',
+          'Inter',
+          '-apple-system', 
+          'BlinkMacSystemFont', 
+          'Segoe UI', 
+          'system-ui',
+          'sans-serif'
+        ],
+        
+        // Code & metrics: JetBrains Mono - designed for developers
         mono: [
           'JetBrains Mono', 
-          'Fira Code', 
           'SF Mono', 
           'Monaco', 
           'Cascadia Code', 
@@ -34,115 +42,169 @@ export default {
           'monospace'
         ],
         
-        // Research-based: Display font for large headings
-        // Poppins has strong character, excellent for hero sections
+        // Alternative code font: IBM Plex Mono - clean, technical
+        code: [
+          'IBM Plex Mono',
+          'JetBrains Mono',
+          'SF Mono', 
+          'Monaco', 
+          'Consolas',
+          'monospace'
+        ],
+        
+        // Display font for headings: Inter with tighter spacing
         display: [
-          'Poppins',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
           'sans-serif'
-        ],
-        
-        // Research-based: Brand font for logo/special elements
-        brand: [
-          'Space Grotesk',
-          'Inter',
-          'system-ui',
-          'sans-serif'
         ]
       },
       colors: {
-        // Research-based Primary: Cyan (Trust, Technology, Reliability)
-        // Perfect for backend engineers - conveys stability and technical expertise
+        // Primary: Indigo (Professional, Trustworthy, Technical)
+        // Lower saturation in light mode for better contrast
         primary: {
-          50: '#ecfeff',    // Ultra light - subtle backgrounds
-          100: '#cffafe',   // Light backgrounds, borders
-          200: '#a5f3fc',   // Hover states
-          300: '#67e8f9',   // Subtle accents
-          400: '#22d3ee',   // Interactive elements
-          500: '#06b6d4',   // Main brand color - 4.8:1 contrast on white
-          600: '#0891b2',   // Primary buttons, links
-          700: '#0e7490',   // Dark mode primary
-          800: '#155e75',   // Strong emphasis
-          900: '#164e63',   // Dark backgrounds
-          950: '#083344',   // Deepest shade
+          50: '#eef2ff',    // Very subtle backgrounds for chips/badges
+          100: '#e0e7ff',   // Light backgrounds
+          200: '#c7d2fe',   // Hover states
+          300: '#a5b4fc',   // Subtle accents
+          400: '#818cf8',   // Interactive elements
+          500: '#6366f1',   // Main brand color
+          600: '#4f46e5',   // Primary buttons (light mode)
+          700: '#4338ca',   // Links, emphasis (light mode)
+          800: '#3730a3',   // Strong emphasis
+          900: '#312e81',   // Dark backgrounds
+          950: '#1e1b4b',   // Deepest shade
         },
         
-        // Research-based Secondary: Emerald Green (Growth, Success, Innovation)
-        // Represents career progression and achievements
-        accent: {
-          50: '#ecfdf5',    // Success backgrounds
-          100: '#d1fae5',   // Light success states
-          200: '#a7f3d0',   // Achievement highlights
-          300: '#6ee7b7',   // Interactive hover
-          400: '#34d399',   // Active states
-          500: '#10b981',   // Main accent - 4.7:1 contrast
-          600: '#059669',   // Buttons, CTAs
-          700: '#047857',   // Dark mode accent
-          800: '#065f46',   // Strong success
-          900: '#064e3b',   // Deep success
-          950: '#022c22',   // Deepest accent
+        // Success/accent color for achievements and positive metrics
+        success: {
+          50: '#f0fdf4',    // Success backgrounds
+          100: '#dcfce7',   // Light success states
+          200: '#bbf7d0',   // Achievement highlights
+          300: '#86efac',   // Interactive hover
+          400: '#4ade80',   // Active states
+          500: '#22c55e',   // Main success color
+          600: '#16a34a',   // Success buttons
+          700: '#15803d',   // Success emphasis
+          800: '#166534',   // Strong success
+          900: '#14532d',   // Deep success
+          950: '#052e16',   // Deepest success
         },
         
-        // Research-based Neutral: Slate (Professional, Clean, Modern)
-        // Based on WCAG 2.1 AA+ contrast requirements
+        // Neutral grays with proper contrast on white backgrounds
+        // Using slate scale for professional appearance
         neutral: {
-          50: '#f8fafc',    // Light mode background
+          50: '#f8fafc',    // Light mode background (slate-50)
           100: '#f1f5f9',   // Card backgrounds
           200: '#e2e8f0',   // Borders, dividers
           300: '#cbd5e1',   // Disabled states
           400: '#94a3b8',   // Placeholders - 4.5:1 contrast
           500: '#64748b',   // Secondary text - 7.4:1 contrast
-          600: '#475569',   // Primary text - 10.4:1 contrast
-          700: '#334155',   // Headings - 13.2:1 contrast
+          600: '#475569',   // Subtext (slate-600) - 10.4:1 contrast
+          700: '#334155',   // Primary text (slate-700) - 13.2:1 contrast  
           800: '#1e293b',   // Dark mode cards
-          900: '#0f172a',   // Dark mode background
+          900: '#0f172a',   // Primary text on dark (slate-900)
           950: '#020617',   // Deepest dark
         },
         
-        // Research-based Purple: Innovation & Creativity
-        // For highlighting technical achievements and code
-        innovation: {
-          50: '#faf5ff',    // Subtle highlights
-          100: '#f3e8ff',   // Light backgrounds
-          200: '#e9d5ff',   // Hover states
-          300: '#d8b4fe',   // Interactive
-          400: '#c084fc',   // Active purple
-          500: '#a855f7',   // Main purple - 5.2:1 contrast
-          600: '#9333ea',   // Strong purple
-          700: '#7c3aed',   // Dark mode purple
-          800: '#6b21a8',   // Deep purple
-          900: '#581c87',   // Darkest purple
-          950: '#3b0764',   // Ultra deep
+        // Modern accent colors for visual interest
+        accent: {
+          50: '#fdf4ff',    // Ultra light purple
+          100: '#fae8ff',   // Light purple backgrounds
+          200: '#f5d0fe',   // Soft purple
+          300: '#f0abfc',   // Medium purple
+          400: '#e879f9',   // Bright purple
+          500: '#d946ef',   // Main accent color
+          600: '#c026d3',   // Strong accent
+          700: '#a21caf',   // Dark accent
+          800: '#86198f',   // Deeper accent
+          900: '#701a75',   // Deep purple
+          950: '#4a044e',   // Deepest purple
         },
         
-        // Semantic Colors (Research-based)
-        success: {
-          50: '#f0fdf4',
-          500: '#22c55e',   // 4.9:1 contrast ratio
-          600: '#16a34a',
-          700: '#15803d',
-        },
+        // Warning/Orange for metrics and highlights
         warning: {
-          50: '#fffbeb',
-          500: '#f59e0b',   // 4.6:1 contrast ratio
-          600: '#d97706',
-          700: '#b45309',
+          50: '#fffbeb',    // Subtle warning backgrounds
+          100: '#fef3c7',   // Light warning states
+          200: '#fde68a',   // Warning highlights
+          300: '#fcd34d',   // Interactive warning
+          400: '#fbbf24',   // Active warning
+          500: '#f59e0b',   // Main warning color
+          600: '#d97706',   // Warning buttons
+          700: '#b45309',   // Warning emphasis
+          800: '#92400e',   // Strong warning
+          900: '#78350f',   // Deep warning
+          950: '#451a03',   // Deepest warning
         },
-        error: {
-          50: '#fef2f2',
-          500: '#ef4444',   // 4.5:1 contrast ratio
-          600: '#dc2626',
-          700: '#b91c1c',
-        },
+        
+        // Modern blue for information and links
         info: {
-          50: '#eff6ff',
-          500: '#3b82f6',   // 4.8:1 contrast ratio
-          600: '#2563eb',
-          700: '#1d4ed8',
+          50: '#eff6ff',    // Light info backgrounds
+          100: '#dbeafe',   // Soft blue
+          200: '#bfdbfe',   // Medium blue
+          300: '#93c5fd',   // Bright blue
+          400: '#60a5fa',   // Active blue
+          500: '#3b82f6',   // Main info color
+          600: '#2563eb',   // Strong blue
+          700: '#1d4ed8',   // Dark blue
+          800: '#1e40af',   // Deeper blue
+          900: '#1e3a8a',   // Deep blue
+          950: '#172554',   // Deepest blue
+        },
+        
+        // Error/Red for validation and alerts
+        error: {
+          50: '#fef2f2',    // Subtle error backgrounds
+          100: '#fee2e2',   // Light error states
+          200: '#fecaca',   // Error highlights
+          300: '#fca5a5',   // Interactive error
+          400: '#f87171',   // Active error
+          500: '#ef4444',   // Main error color
+          600: '#dc2626',   // Error buttons
+          700: '#b91c1c',   // Error emphasis
+          800: '#991b1b',   // Strong error
+          900: '#7f1d1d',   // Deep error
+          950: '#450a0a',   // Deepest error
         }
       },
+      
+      // Enhanced spacing system for better mobile-first design
+      spacing: {
+        '18': '4.5rem',   // 72px
+        '22': '5.5rem',   // 88px
+        '26': '6.5rem',   // 104px
+        '30': '7.5rem',   // 120px
+        '34': '8.5rem',   // 136px
+        '38': '9.5rem',   // 152px
+        '42': '10.5rem',  // 168px
+        '46': '11.5rem',  // 184px
+        '50': '12.5rem',  // 200px
+        '54': '13.5rem',  // 216px
+        '58': '14.5rem',  // 232px
+        '62': '15.5rem',  // 248px
+        '66': '16.5rem',  // 264px
+        '70': '17.5rem',  // 280px
+        '74': '18.5rem',  // 296px
+        '78': '19.5rem',  // 312px
+        '82': '20.5rem',  // 328px
+        '86': '21.5rem',  // 344px
+        '90': '22.5rem',  // 360px
+        '94': '23.5rem',  // 376px
+        '98': '24.5rem',  // 392px
+      },
+      
+      // Enhanced breakpoints for better responsive design
+      screens: {
+        'xs': '475px',    // Extra small devices
+        'sm': '640px',    // Small devices (landscape phones)
+        'md': '768px',    // Medium devices (tablets)
+        'lg': '1024px',   // Large devices (desktops)
+        'xl': '1280px',   // Extra large devices
+        '2xl': '1536px',  // 2X large devices
+        '3xl': '1920px',  // Ultra wide screens
+      },
+      
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
@@ -230,35 +292,46 @@ export default {
         '144': '36rem',
       },
       fontSize: {
-        // Research-based typography scale (Perfect Fifth: 1.5 ratio)
-        // Optimized for readability and hierarchy
+        // Typography hierarchy: Inter/Manrope (body) + JetBrains Mono/IBM Plex Mono (code)
+        // Clear hierarchy with tighter line-heights and consistent letter-spacing
+        
+        // Small text and UI elements
         '2xs': ['0.625rem', { lineHeight: '0.875rem', letterSpacing: '0.025em' }],
         'xs': ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.025em' }],
         'sm': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.01em' }],
-        'base': ['1rem', { lineHeight: '1.5rem', letterSpacing: '0' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem', letterSpacing: '-0.01em' }],
-        'xl': ['1.25rem', { lineHeight: '1.875rem', letterSpacing: '-0.01em' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem', letterSpacing: '-0.02em' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.02em' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.03em' }],
-        '5xl': ['3rem', { lineHeight: '3.25rem', letterSpacing: '-0.03em' }],
-        '6xl': ['3.75rem', { lineHeight: '4rem', letterSpacing: '-0.04em' }],
-        '7xl': ['4.5rem', { lineHeight: '4.75rem', letterSpacing: '-0.04em' }],
-        '8xl': ['6rem', { lineHeight: '6.25rem', letterSpacing: '-0.05em' }],
-        '9xl': ['8rem', { lineHeight: '8.25rem', letterSpacing: '-0.05em' }],
         
-        // Specialized sizes for specific use cases
-        'display-sm': ['2.5rem', { lineHeight: '2.75rem', letterSpacing: '-0.025em' }],
-        'display-md': ['3.5rem', { lineHeight: '3.75rem', letterSpacing: '-0.035em' }],
-        'display-lg': ['4.75rem', { lineHeight: '5rem', letterSpacing: '-0.045em' }],
-        'display-xl': ['6.5rem', { lineHeight: '6.75rem', letterSpacing: '-0.055em' }],
+        // Body text: 16-18px with tight line-height (1.4-1.6)
+        'base': ['1rem', { lineHeight: '1.4rem', letterSpacing: '0' }],        // 16px
+        'lg': ['1.125rem', { lineHeight: '1.6rem', letterSpacing: '-0.01em' }], // 18px
         
-        // Clamp-based responsive typography (new design system)
-        'display': ['clamp(2.75rem, 6vw, 4.5rem)', { 
+        // Monospace: 14-15px for code and metrics
+        'mono-sm': ['0.875rem', { lineHeight: '1.25rem', letterSpacing: '0.025em', fontFamily: 'JetBrains Mono, monospace' }], // 14px
+        'mono-base': ['0.9375rem', { lineHeight: '1.35rem', letterSpacing: '0.025em', fontFamily: 'JetBrains Mono, monospace' }], // 15px
+        
+        // Headings with consistent letter-spacing
+        'xl': ['1.25rem', { lineHeight: '1.75rem', letterSpacing: '-0.02em' }],   // 20px
+        '2xl': ['1.5rem', { lineHeight: '2rem', letterSpacing: '-0.025em' }],     // 24px
+        
+        // H2: 28-32px
+        'h2': ['1.75rem', { lineHeight: '2.25rem', letterSpacing: '-0.025em' }],  // 28px
+        'h2-lg': ['2rem', { lineHeight: '2.5rem', letterSpacing: '-0.03em' }],    // 32px
+        
+        // H1: 36-44px  
+        'h1': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.03em' }],   // 36px
+        'h1-lg': ['2.75rem', { lineHeight: '3.25rem', letterSpacing: '-0.035em' }], // 44px
+        // Large display sizes
+        '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.025em' }], // 30px
+        '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.03em' }],    // 36px (H1 base)
+        '5xl': ['3rem', { lineHeight: '3.25rem', letterSpacing: '-0.035em' }],     // 48px
+        '6xl': ['3.75rem', { lineHeight: '4rem', letterSpacing: '-0.04em' }],      // 60px
+        '7xl': ['4.5rem', { lineHeight: '4.75rem', letterSpacing: '-0.04em' }],    // 72px
+        
+        // Responsive display typography
+        'display': ['clamp(2.25rem, 6vw, 2.75rem)', { 
           lineHeight: '1.1', 
-          letterSpacing: '-0.02em',
+          letterSpacing: '-0.03em',
           fontFeatureSettings: '"ss01", "cv02", "cv11"'
-        }],
+        }], // H1 responsive: 36-44px
         'h2': ['clamp(1.75rem, 3.2vw, 2.5rem)', { 
           lineHeight: '1.2', 
           letterSpacing: '-0.01em' 

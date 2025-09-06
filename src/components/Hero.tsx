@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Download } from 'lucide-react';
 import { PersonalInfo } from '@/types';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { Avatar } from './Avatar';
+// import { ImageDebug } from './ImageDebug';
 
 interface HeroProps {
   personalInfo: PersonalInfo;
@@ -98,12 +100,30 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
         />
       </div>
 
-      <div className="max-w-content mx-auto px-6 text-center relative z-10">
+      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
+          {/* Professional Avatar */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-6 sm:mb-8 flex justify-center"
+          >
+            <motion.div
+              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Avatar 
+                name={personalInfo.name}
+                size="lg"
+                showStatus={true}
+                src={`${import.meta.env.BASE_URL}images/avatar-optimized.jpg`}
+              />
+            </motion.div>
+          </motion.div>
+
           {/* Greeting */}
           <motion.p
             variants={itemVariants}
@@ -128,34 +148,26 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
             {personalInfo.name}
           </motion.h1>
 
-          {/* Title */}
+          {/* One-line description */}
           <motion.h2
             variants={itemVariants}
-            className="text-h2 font-display font-semibold text-neutral-700 dark:text-neutral-300 mb-6"
+            className="text-h2-lg font-body font-medium text-neutral-700 dark:text-neutral-300 mb-12 max-w-4xl mx-auto"
           >
             {personalInfo.title}
           </motion.h2>
 
-          {/* Microcopy - new addition */}
-          <motion.p
-            variants={itemVariants}
-            className="text-body-lg text-primary-600 dark:text-primary-400 font-medium mb-8 max-w-2xl mx-auto"
-          >
-            I optimize latency, throughput, and reliability for data-heavy systems.
-          </motion.p>
-
-          {/* "Why me" bullets - new addition */}
+          {/* Skills chips with proper contrast */}
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap justify-center gap-3 mb-8"
           >
-            <span className="px-4 py-2 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-pill text-small font-medium">
+            <span className="px-3 py-2 bg-primary-50 text-primary-700 rounded-lg text-sm font-semibold border border-primary-200/50">
               Performance
             </span>
-            <span className="px-4 py-2 bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 rounded-pill text-small font-medium">
+            <span className="px-3 py-2 bg-success-50 text-success-700 rounded-lg text-sm font-semibold border border-success-200/50">
               Data Pipelines
             </span>
-            <span className="px-4 py-2 bg-innovation-100 dark:bg-innovation-900/30 text-innovation-700 dark:text-innovation-300 rounded-pill text-small font-medium">
+            <span className="px-3 py-2 bg-warning-50 text-warning-700 rounded-lg text-sm font-semibold border border-warning-200/50">
               Migrations
             </span>
           </motion.div>
@@ -183,7 +195,7 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
           {/* CTA Buttons - Enhanced with 3rd CTA */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-2 sm:px-0"
           >
             <motion.a
               href="#contact"
@@ -194,7 +206,7 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
                   block: 'start'
                 });
               }}
-              className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-card hover:shadow-card-hover"
+              className="inline-flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-card hover:shadow-card-hover w-full sm:w-auto"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -211,7 +223,7 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
                   block: 'start'
                 });
               }}
-              className="inline-flex items-center gap-2 bg-transparent border-2 border-primary-600 text-primary-600 dark:text-primary-400 dark:border-primary-400 hover:bg-primary-600 hover:text-white dark:hover:bg-primary-400 dark:hover:text-neutral-900 px-8 py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-primary-600 text-primary-600 dark:text-primary-400 dark:border-primary-400 hover:bg-primary-600 hover:text-white dark:hover:bg-primary-400 dark:hover:text-neutral-900 px-6 sm:px-8 py-3 sm:py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 w-full sm:w-auto"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -223,7 +235,7 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
             <motion.a
               href="/resume.pdf"
               download="Anshul_Garg_Resume.pdf"
-              className="inline-flex items-center gap-2 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 px-8 py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 px-6 sm:px-8 py-3 sm:py-4 rounded-card font-semibold transition-all duration-240 ease-hover hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 w-full sm:w-auto"
               whileHover={prefersReducedMotion ? {} : { y: -2 }}
               whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             >
@@ -301,6 +313,9 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
           </motion.button>
         </motion.div>
       </div>
+      
+      {/* Temporary Debug Component */}
+      {/* <ImageDebug src={`${import.meta.env.BASE_URL}images/avatar-optimized.jpg`} name="Avatar Optimized" /> */}
     </section>
   );
 };

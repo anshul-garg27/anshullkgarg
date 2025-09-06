@@ -240,10 +240,10 @@ const Contact: React.FC = () => {
   return (
     <section 
       id="contact" 
-      className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-900/50"
+      className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-900/50 scroll-mt-28"
       aria-labelledby="contact-heading"
     >
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
+      <div className="max-w-content mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
