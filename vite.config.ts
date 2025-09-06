@@ -57,4 +57,6 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
   },
+  // Handle raw imports for markdown files
+  assetsInclude: ['**/*.md'],
 })

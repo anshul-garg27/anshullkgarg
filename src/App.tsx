@@ -5,7 +5,6 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { usePerformanceMonitoring } from '@/hooks/usePerformanceMonitoring';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import ProofBand from '@/components/ProofBand';
 import Footer from '@/components/Footer';
 import { resumeData } from '@/data/resume';
 
@@ -15,6 +14,11 @@ const Experience = React.lazy(() => import('@/components/Experience'));
 const Projects = React.lazy(() => import('@/components/Projects'));
 const Skills = React.lazy(() => import('@/components/Skills'));
 const Contact = React.lazy(() => import('@/components/Contact'));
+
+// Import the new sections as components (not pages)
+const EducationSection = React.lazy(() => import('@/components/EducationSection'));
+const PhotosSection = React.lazy(() => import('@/components/PhotosSection'));
+const BlogSection = React.lazy(() => import('@/components/BlogSection'));
 
 // Loading component for lazy sections
 const SectionLoader: React.FC = () => (
@@ -65,6 +69,7 @@ function App() {
       />
 
       <main id="main-content" role="main">
+        {/* Hero Section */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -73,10 +78,7 @@ function App() {
           <Hero personalInfo={resumeData.personalInfo} />
         </motion.div>
 
-        {/* Proof Band - new addition */}
-        <ProofBand />
-
-        {/* Lazy-loaded sections with Suspense boundaries */}
+        {/* About Section */}
         <Suspense fallback={<SectionLoader />}>
           <motion.div
             initial="hidden"
@@ -88,6 +90,19 @@ function App() {
           </motion.div>
         </Suspense>
 
+        {/* Education Section - NEW */}
+        <Suspense fallback={<SectionLoader />}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInVariants}
+          >
+            <EducationSection />
+          </motion.div>
+        </Suspense>
+
+        {/* Experience Section */}
         <Suspense fallback={<SectionLoader />}>
           <motion.div
             initial="hidden"
@@ -99,6 +114,7 @@ function App() {
           </motion.div>
         </Suspense>
 
+        {/* Projects Section */}
         <Suspense fallback={<SectionLoader />}>
           <motion.div
             initial="hidden"
@@ -110,6 +126,7 @@ function App() {
           </motion.div>
         </Suspense>
 
+        {/* Skills Section */}
         <Suspense fallback={<SectionLoader />}>
           <motion.div
             initial="hidden"
@@ -121,6 +138,31 @@ function App() {
           </motion.div>
         </Suspense>
 
+        {/* Photos Section - NEW (Coming Soon) */}
+        <Suspense fallback={<SectionLoader />}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInVariants}
+          >
+            <PhotosSection />
+          </motion.div>
+        </Suspense>
+
+        {/* Blog Section - NEW (Coming Soon) */}
+        <Suspense fallback={<SectionLoader />}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInVariants}
+          >
+            <BlogSection />
+          </motion.div>
+        </Suspense>
+
+        {/* Contact Section */}
         <Suspense fallback={<SectionLoader />}>
           <motion.div
             initial="hidden"

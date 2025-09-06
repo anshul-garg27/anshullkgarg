@@ -1,10 +1,18 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly BASE_URL: string
-  // more env variables...
+// Declare raw imports for markdown files
+declare module '*.md?raw' {
+  const content: string;
+  export default content;
 }
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv
+declare module '*.md' {
+  const content: string;
+  export default content;
+}
+
+// Declare Prism.js component modules
+declare module 'prismjs/components/*' {
+  const content: any;
+  export default content;
 }

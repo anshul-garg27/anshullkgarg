@@ -306,6 +306,108 @@
   }
 }
 
+/* Shimmer animation for image loading */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Enhanced code block styling */
+pre[class*="language-"] {
+  @apply bg-neutral-900 border border-white/10 rounded-xl p-6 overflow-x-auto text-sm leading-relaxed;
+  margin: 2rem 0;
+}
+
+code[class*="language-"] {
+  @apply text-white;
+}
+
+/* Prism theme overrides for better integration */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-neutral-500;
+}
+
+.token.punctuation {
+  @apply text-white/70;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-red-400;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-green-400;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-yellow-400;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-blue-400;
+}
+
+.token.function,
+.token.class-name {
+  @apply text-purple-400;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-orange-400;
+}
+
+/* Line highlighting */
+.line-highlight {
+  @apply bg-white/5 border-l-4 border-primary-500;
+}
+
+/* Copy button styling */
+.code-toolbar {
+  position: relative;
+}
+
+.code-toolbar .toolbar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.code-toolbar:hover .toolbar {
+  opacity: 1;
+}
+
 /* Print styles */
 @media print {
   .no-print {
