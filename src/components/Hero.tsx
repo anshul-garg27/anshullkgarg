@@ -119,7 +119,7 @@ const Hero: React.FC<HeroProps> = ({ personalInfo }) => {
                 name={personalInfo.name}
                 size="lg"
                 showStatus={true}
-                src={`${import.meta.env.BASE_URL}images/avatar-optimized.jpg`}
+                src={`${import.meta.env.BASE_URL || '/'}images/avatar-optimized.jpg`}
               />
             </motion.div>
           </motion.div>

@@ -17,12 +17,13 @@ const sizeClasses = {
   xl: 'w-48 h-48'
 };
 
-const iconSizes = {
-  sm: 'w-6 h-6',
-  md: 'w-10 h-10',
-  lg: 'w-16 h-16 md:w-20 md:h-20', 
-  xl: 'w-24 h-24'
-};
+// Icon sizes for different avatar sizes (unused but kept for future use)
+// const iconSizes = {
+//   sm: 'w-6 h-6',
+//   md: 'w-10 h-10',
+//   lg: 'w-16 h-16 md:w-20 md:h-20', 
+//   xl: 'w-24 h-24'
+// };
 
 const textSizes = {
   sm: 'text-xs',
@@ -107,7 +108,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         `${window.location.pathname}${src.replace(/^\//, '')}`,
       ];
       const uniquePaths = [...new Set(possiblePaths)];
-      const currentIndex = uniquePaths.indexOf(currentSrc);
+      const currentIndex = uniquePaths.indexOf(currentSrc || '');
       
       if (currentIndex < uniquePaths.length - 1) {
         const nextPath = uniquePaths[currentIndex + 1];

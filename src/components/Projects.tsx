@@ -10,7 +10,7 @@ interface ProjectsProps {
 
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  // const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   const categories = [
@@ -158,8 +158,6 @@ const Projects: React.FC<ProjectsProps> = ({ projects }) => {
                     variants={itemVariants}
                     layout
                     className="bg-white/80 dark:bg-neutral-800/60 backdrop-blur-sm rounded-card-lg overflow-hidden shadow-card dark:shadow-card-dark border border-neutral-200/50 dark:border-neutral-700/50 group"
-                    onMouseEnter={() => setHoveredProject(project.id)}
-                    onMouseLeave={() => setHoveredProject(null)}
                     whileHover={prefersReducedMotion ? {} : { 
                       y: -6, 
                       scale: 1.02,
