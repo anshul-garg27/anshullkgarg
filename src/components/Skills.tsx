@@ -12,7 +12,6 @@ import {
   X, 
   CheckCircle, 
   ExternalLink,
-  ChevronRight,
   Search,
   RotateCcw,
   User,
@@ -282,7 +281,6 @@ const SkillChip: React.FC<SkillChipProps> = ({ skill, onOpen, isKeyboardFocused 
   const prefersReducedMotion = useReducedMotion();
   const evidence = skillEvidence[skill.id] || [];
   const hasEvidence = evidence.length > 0;
-  const LevelIcon = levelIcons[skill.proficiency as SkillLevel];
   
   return (
     <motion.button
@@ -361,7 +359,6 @@ const SkillModal: React.FC<SkillModalProps> = ({
 
   if (!isOpen || !skill) return null;
 
-  const LevelIcon = levelIcons[skill.proficiency as SkillLevel];
   const shareUrl = `${window.location.origin}${window.location.pathname}?skill=${skill.id}`;
 
   return (
@@ -397,7 +394,7 @@ const SkillModal: React.FC<SkillModalProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-xl ${levelStyles[skill.proficiency as SkillLevel]}`}>
-                    <LevelIcon className="w-6 h-6" />
+                    {React.createElement(levelIcons[skill.proficiency as SkillLevel], { className: "w-6 h-6" })}
                   </div>
                   <div>
                     <h2 

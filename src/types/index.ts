@@ -7,6 +7,8 @@ export interface PersonalInfo {
   website?: string;
   linkedin?: string;
   github?: string;
+  leetcode?: string;
+  instagram?: string;
   summary: string;
 }
 
@@ -31,6 +33,7 @@ export interface Education {
   endDate: string;
   gpa?: string;
   honors?: string[];
+  achievements?: string[];
   coursework?: string[];
 }
 
@@ -43,7 +46,7 @@ export interface Project {
   demoUrl?: string;
   githubUrl?: string;
   imageUrl?: string;
-  category: 'web' | 'mobile' | 'ai' | 'backend' | 'other';
+  category: 'web' | 'mobile' | 'ai' | 'backend' | 'fullstack' | 'system' | 'other';
   status: 'completed' | 'in-progress' | 'planned';
 }
 
